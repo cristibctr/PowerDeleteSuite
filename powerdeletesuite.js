@@ -1,3 +1,11 @@
+function wait(ms) {
+  var start = Date.now(),
+      now = start;
+  while (now - start < ms) {
+    now = Date.now();
+  }
+}
+
 var pd = {
   version: '1.4.8',
   bookmarkver: '1.4',
@@ -413,6 +421,7 @@ var pd = {
           pd.actions.page.next();
         } else if (shouldBeActedOn) {
           if (!item.pdEdited && ((item.data.is_self || item.kind == 't1') && pd.task.config.isEditing)) {
+            wait(5300);
             pd.actions.edit(item);
           } else if (!item.pdDeleted && ((item.kind == 't3' && pd.task.config.isRemovingPosts) || (item.kind == 't1' && pd.task.config.isRemovingComments))) {
             pd.actions.delete(item);
